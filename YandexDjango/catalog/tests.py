@@ -11,4 +11,3 @@ class StaticUrlTests(TestCase):
 
         response = Client().get('catalog/abc/')
         self.assertEqual(response.status_code, 404)
- 
