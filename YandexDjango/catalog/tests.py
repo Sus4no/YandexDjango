@@ -6,5 +6,8 @@ class StaticUrlTests(TestCase):
         response = Client().get('/catalog/')
         self.assertEqual(response.status_code, 200)
 
-        response = Client().get('/catalog/1/')
+        response = Client().get('/catalog/123/')
         self.assertEqual(response.status_code, 200)
+
+        response = Client().get('catalog/abc/')
+        self.assertEqual(response.status_code, 404)
