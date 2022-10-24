@@ -1,1 +1,5 @@
-# from django.shortcuts import render
+from django.shortcuts import HttpResponse
+
+
+def description(request):
+    return HttpResponse('О проекте')

@@ -1,6 +1,4 @@
-
 from pathlib import Path
-
 from dotenv import dotenv_values
 
 # Загрузка переменных из .env
@@ -10,9 +8,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config['SECRET_KEY']
 
-DEBUG = True
+DEBUG = map(lambda x: x == 'True', config['DEBUG'])
 
-ALLOWED_HOSTS = [config['DOMAIN']]
+ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
