@@ -7,7 +7,6 @@ config = dotenv_values('/home/runner/work/YandexDjango/YandexDjango/YandexDjango
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config['SECRET_KEY']
-config = dotenv_values('.env')
 
 DEBUG = map(lambda x: x == 'True', config['DEBUG'])
 
