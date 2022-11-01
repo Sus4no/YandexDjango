@@ -2,12 +2,12 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 # Загрузка переменных из .env
-config = dotenv_values(
-  '/home/runner/work/YandexDjango/YandexDjango/YandexDjango/.env')
+config = dotenv_values('.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config['SECRET_KEY']
+config = dotenv_values('.env')
 
 DEBUG = map(lambda x: x == 'True', config['DEBUG'])
 
@@ -67,8 +67,8 @@ DATABASES = {
 
 AUTH_PASSWORD_VALIDATORS = [
     {
-        'NAME': '''django.contrib.auth.password_validation.
-        UserAttributeSimilarityValidator''',
+        'NAME': 'django.contrib.auth.password_validation.' +
+        'UserAttributeSimilarityValidator',
     },
     {
         'NAME':
@@ -85,7 +85,7 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 
