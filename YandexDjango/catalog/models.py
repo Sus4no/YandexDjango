@@ -29,7 +29,8 @@ class Category(Core):
 class Item(Core):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
-    text = models.TextField(validators=[validate_if_words_there],
+    text = models.TextField(validators=[validate_if_words_there('превосходно',
+                                                                'роскошно')],
                             help_text='Описание должно быть больше 2х слов' +
                                       ' и содержать слова ' +
                                       '\"превосходно, роскошно\"')

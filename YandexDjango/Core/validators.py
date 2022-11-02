@@ -1,13 +1,15 @@
 from django.core.exceptions import ValidationError
 
 
-def validate_if_words_there(value):
-    words = {'превосходно', 'роскошно'}
-    cleaned_value = set(value.lower().split())
+def validate_if_words_there(*args):
 
-    deifference = words - cleaned_value
+    def validate(value):
+        words = set(args)
+        cleaned_value = set(value.lower().split())
 
-    if len(deifference) == len(words):
-        raise ValidationError(f'Обязательно использовать {words}')
+        deifference = words - cleaned_value
 
-    return value
+        if len(deifference) == len(words):
+            raise ValidationError(f'Обязательно использовать {words}')
+
+    return validate
