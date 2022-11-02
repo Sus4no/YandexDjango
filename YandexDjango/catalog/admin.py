@@ -1,12 +1,12 @@
 from django.contrib import admin
-from .models import catalog_tag, catalog_category, catalog_item
+from .models import Tag, Category, Item
 
 
 admin.site.site_header = 'Администрирование Django'
 admin.site.index_title = 'Администрация сайта'
 
 
-@admin.register(catalog_item)
+@admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_published')
     list_editable = ('is_published', )
@@ -14,14 +14,14 @@ class ItemAdmin(admin.ModelAdmin):
     filter_horizontal = ('tags', )
 
 
-@admin.register(catalog_tag)
+@admin.register(Tag)
 class TagAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_published')
     list_editable = ('is_published', )
     list_display_links = ('name', )
 
 
-@admin.register(catalog_category)
+@admin.register(Category)
 class CatalogAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_published')
     list_editable = ('is_published', )

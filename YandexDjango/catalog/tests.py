@@ -1,6 +1,6 @@
 from django.test import TestCase, Client
 from django.core.exceptions import ValidationError
-from .models import catalog_category, catalog_item, catalog_tag
+from .models import Category, Item, Tag
 
 
 class StaticUrlTests(TestCase):
@@ -26,12 +26,12 @@ class ModelsTest(TestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.category = (catalog_category.objects
+        cls.category = (Category.objects
                         .create(is_published=True,
                                 name='Тестовая категория',
                                 slug='test-category-slug',
                                 weight=150))
-        cls.tag = (catalog_tag.objects
+        cls.tag = (Tag.objects
                    .create(is_published=True,
                            name='Тестовый тэг',
                            slug='test-tag-slug'))
@@ -39,41 +39,41 @@ class ModelsTest(TestCase):
         cls.tag.save()
 
     def test_unable_to_create_one_letter(self):
-        item_count = catalog_item.objects.count()
+        item_count = Item.objects.count()
 
         with self.assertRaises(ValidationError):
-            self.item = catalog_item(name='Тестовый айтем',
-                                     category=self.category,
-                                     text='some txt 123.1 превос')
+            self.item = Item(name='Тестовый айтем',
+                             category=self.category,
+                             text='some txt 123.1 превос')
             self.item.full_clean()
             self.item.save()
             self.item.tags.add(self.tag)
 
         with self.assertRaises(ValidationError):
-            self.item1 = catalog_item(name='Тестовый айтем1',
-                                      category=self.category,
-                                      text='Роскошн rfrbt askdnjq')
+            self.item1 = Item(name='Тестовый айтем1',
+                              category=self.category,
+                              text='Роскошн rfrbt askdnjq')
             self.item1.full_clean()
             self.item1.save()
             self.item1.tags.add(self.tag)
 
-        self.assertEqual(catalog_item.objects.count(), item_count)
+        self.assertEqual(Item.objects.count(), item_count)
 
     def test_able_to_create_one_letter(self):
-        item_count = catalog_item.objects.count()
+        item_count = Item.objects.count()
 
-        self.item = catalog_item(name='Тестовый айтем',
-                                 category=self.category,
-                                 text='Роскошно some words 109031')
+        self.item = Item(name='Тестовый айтем',
+                         category=self.category,
+                         text='Роскошно some words 109031')
         self.item.full_clean()
         self.item.save()
         self.item.tags.add(self.tag)
 
-        self.item1 = catalog_item(name='Тестовый айтем1',
-                                  category=self.category,
-                                  text='какие-то слова..12 превосходно sfj,s')
+        self.item1 = Item(name='Тестовый айтем1',
+                          category=self.category,
+                          text='какие-то слова..12 превосходно sfj,s')
         self.item1.full_clean()
         self.item1.save()
         self.item1.tags.add(self.tag)
 
-        self.assertEqual(catalog_item.objects.count(), item_count + 2)
+        self.assertEqual(Item.objects.count(), item_count + 2)
