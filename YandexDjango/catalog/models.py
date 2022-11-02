@@ -4,7 +4,7 @@ from Core.validators import validate_if_words_there
 
 
 class Tag(Core):
-    slug = models.TextField(max_length=200, unique=True)
+    slug = models.SlugField(max_length=200, unique=True)
 
     def __str__(self):
         return self.name
