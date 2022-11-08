@@ -2,7 +2,7 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 # Загрузка переменных из .env
-config = dotenv_values('/home/runner/work/YandexDjango/YandexDjango/YandexDjango/.env')
+config = dotenv_values('.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -22,7 +22,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'catalog.apps.CatalogConfig',
     'about.apps.AboutConfig',
-    'homepage.apps.HomepageConfig'
+    'homepage.apps.HomepageConfig',
+    'sorl.thumbnail',
+    'django_cleanup.apps.CleanupConfig',
+    'tinymce'
 ]
 
 MIDDLEWARE = [
@@ -40,7 +43,9 @@ ROOT_URLCONF = 'YandexDjango.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            BASE_DIR / 'templates'
+            ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -96,6 +101,17 @@ USE_TZ = True
 
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [
+    BASE_DIR / 'static_dev'
+]
+STATIC_ROOT = 'static'
 
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
+
+
+# TINYMCE_JS_URL = STATIC_URL + 'tinymce/tinymce.min.js'
+# TINYMCE_JS_ROOT = STATIC_ROOT + 'tinymce'

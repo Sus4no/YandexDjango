@@ -3,6 +3,7 @@ from django.utils.safestring import mark_safe
 from Core.models import Core
 from Core.validators import validate_if_words_there
 from sorl.thumbnail import get_thumbnail
+from tinymce.models import HTMLField
 
 
 class Tag(Core):
@@ -31,11 +32,11 @@ class Category(Core):
 class Item(Core):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
-    text = models.TextField(validators=[validate_if_words_there('превосходно',
-                                                                'роскошно')],
-                            help_text='Описание должно быть больше 2х слов' +
-                                      ' и содержать слова ' +
-                                      '\"превосходно, роскошно\"')
+    text = HTMLField(validators=[validate_if_words_there('превосходно',
+                                                         'роскошно')],
+                     help_text='Описание должно быть больше 2х слов' +
+                               ' и содержать слова ' +
+                               '\"превосходно, роскошно\"')
 
     upload = models.ImageField(upload_to='uploads/%Y/%m', blank=True)
     # gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)

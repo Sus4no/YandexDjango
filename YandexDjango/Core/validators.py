@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+import re
 
 
 def validate_if_words_there(*args):
@@ -9,9 +10,7 @@ def validate_if_words_there(*args):
 
 def validate(value):
     words = set(validation_args)
-    cleaned_value = set(value.lower().split())
+    value = value.lower()
 
-    deifference = words - cleaned_value
-
-    if len(deifference) == len(words):
+    if len(re.findall('|'.join(words), value)) < 1:
         raise ValidationError(f'Обязательно использовать {words}')
