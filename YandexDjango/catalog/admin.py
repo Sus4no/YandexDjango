@@ -11,12 +11,17 @@ class GalleryAdmin(admin.ModelAdmin):
     list_display = ('item', 'image_tmb')
 
 
+class GalleryInline(admin.TabularInline):
+    model = Gallery
+
+
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
     list_display = ('name', 'is_published', 'image_tmb')
     list_editable = ('is_published', )
     list_display_links = ('name', )
     filter_horizontal = ('tags', )
+    inlines = [GalleryInline]
 
 
 @admin.register(Tag)
