@@ -1,5 +1,4 @@
 <h3>{{ item.name }}</h3>
-<p> Категория: {{item.category.name}}</p>
 <p>{{ item.text|safe|truncatewords_html:10}}</p>
 <p> Теги:
     {% for tag in item.tags.all %}

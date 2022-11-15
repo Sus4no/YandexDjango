@@ -6,7 +6,7 @@ def item_list(request):
     template_name = 'catalog/index.html'
     items = Item.objects.on_item_list()
     context = {
-        'items': items
+        'items': items,
     }
     return render(request, template_name, context)
 

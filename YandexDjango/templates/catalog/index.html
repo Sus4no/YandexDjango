@@ -5,6 +5,9 @@
         <h1>Каталог</h1>
         <div>
         {% for item in items %}
+            {% ifchanged %}
+                <br><h3>{{ item.category }}</h3>
+            {% endifchanged %}
             {% include "includes/item_card.html" %}
         {% endfor %}
         </div>
