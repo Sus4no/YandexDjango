@@ -1,5 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1 class="container">Каталог</h1>
+    <div class="container">
+        <h1>Каталог</h1>
+        <div>
+        {% for item in items %}
+            {% include "includes/item_card.html" %}
+        {% endfor %}
+        </div>
+    </div>
 {% endblock content %}

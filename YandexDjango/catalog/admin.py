@@ -21,7 +21,7 @@ class ItemAdmin(admin.ModelAdmin):
     list_editable = ('is_published', )
     list_display_links = ('name', )
     filter_horizontal = ('tags', )
-    inlines = [GalleryInline]
+    inlines = (GalleryInline,)
 
 
 @admin.register(Tag)

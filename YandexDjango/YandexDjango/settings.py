@@ -2,7 +2,7 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 # Загрузка переменных из .env
-config = dotenv_values('/home/runner/work/YandexDjango/YandexDjango/YandexDjango/.env')
+config = dotenv_values('.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -11,6 +11,10 @@ SECRET_KEY = config['SECRET_KEY']
 DEBUG = map(lambda x: x == 'True', config['DEBUG'])
 
 ALLOWED_HOSTS = []
+
+INTERNAL_IPS = [
+    '127.0.0.1'
+    ]
 
 
 INSTALLED_APPS = [
@@ -23,9 +27,11 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'about.apps.AboutConfig',
     'homepage.apps.HomepageConfig',
+
     'sorl.thumbnail',
     'django_cleanup.apps.CleanupConfig',
-    'tinymce'
+    'tinymce',
+    'debug_toolbar',
 ]
 
 MIDDLEWARE = [
@@ -36,6 +42,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'YandexDjango.urls'
@@ -111,7 +119,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
-
-
-# TINYMCE_JS_URL = STATIC_URL + 'tinymce/tinymce.min.js'
-# TINYMCE_JS_ROOT = STATIC_ROOT + 'tinymce'

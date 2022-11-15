@@ -1,5 +1,16 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>Товар №{{ num }}</h1>
+<div class="container">
+    <div>
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.text|safe}}</p>
+        <p> Категория: {{item.category.name}}</p>
+        <p> Теги:
+            {% for tag in item.tags.all %}
+                {{ tag.name }}
+            {% endfor %}
+        </p>
+    </div>
+</div>
 {% endblock content %}

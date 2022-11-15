@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.safestring import mark_safe
+from django.http import Http404
 from Core.models import Core
 from Core.validators import validate_if_words_there
 from sorl.thumbnail import get_thumbnail
@@ -29,14 +30,59 @@ class Category(Core):
         verbose_name = 'Категория'
 
 
+class ItemManager(models.Manager):
+    def on_homepage(self):
+        return (
+            self.get_queryset()
+            .filter(is_published=True, is_on_main=True)
+            .select_related('category')
+            .prefetch_related(
+                models.Prefetch(
+                    'tags',
+                    queryset=Tag.objects.filter(is_published=True).only('name')
+                ))
+            .order_by('name')
+            )
+
+    def on_item_list(self):
+        return (
+            self.get_queryset()
+            .filter(is_published=True)
+            .select_related('category')
+            .prefetch_related(
+                models.Prefetch(
+                    'tags',
+                    queryset=Tag.objects.filter(is_published=True).only('name')
+                ))
+            .order_by('category__name')
+            )
+
+    def on_item_detail(self, pk):
+        values = (
+            self.get_queryset()
+            .filter(id=pk, is_published=True)
+            .select_related('category')
+            .prefetch_related(
+                models.Prefetch(
+                    'tags',
+                    queryset=Tag.objects.filter(is_published=True).only('name')
+                )))
+        if values:
+            return values
+        raise Http404
+
+
 class Item(Core):
+    objects = ItemManager()
+
+    is_on_main = models.BooleanField(default=False)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     tags = models.ManyToManyField(Tag)
     text = HTMLField(validators=[validate_if_words_there('превосходно',
                                                          'роскошно')],
                      help_text='Описание должно быть больше 2х слов' +
                                ' и содержать слова ' +
-                               '\"превосходно, роскошно\"')
+                               '\"превосходно, роскошно\"', )
 
     upload = models.ImageField(upload_to='uploads/%Y/%m', blank=True)
     # gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)
