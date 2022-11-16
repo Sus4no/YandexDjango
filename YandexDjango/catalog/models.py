@@ -84,7 +84,8 @@ class Item(Core):
                                ' и содержать слова ' +
                                '\"превосходно, роскошно\"', )
 
-    upload = models.ImageField(upload_to='uploads/%Y/%m', blank=True)
+    upload = models.ImageField(upload_to='uploads/%Y/%m',
+                               default='uploads/default.png')
     # gallery = models.ForeignKey(Gallery, on_delete=models.CASCADE)
 
     @property

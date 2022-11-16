@@ -4,6 +4,9 @@
 <div class="container">
     <div>
         <h3>{{ item.name }}</h3>
+        <!-- <img src="YandexDjango\media\uploads\2022\11\logo_8kYttDa.png}}" alt="">
+        <div> "YandexDjango/media/{{item.upload.url}}" </div> -->
+        <img class="w-25" src="{{ item.upload.url }}" alt="Where is it?">
         <p>{{ item.text|safe}}</p>
         <p> Категория: {{item.category.name}}</p>
         <p> Теги:
