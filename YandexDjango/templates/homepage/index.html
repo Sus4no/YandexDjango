@@ -10,6 +10,7 @@
         <div>
         {% for item in items %}
             {% include "includes/item_card.html" %}
+            <p> Категория: {{item.category.name}}</p>
         {% endfor %}
         </div>
     </div>
