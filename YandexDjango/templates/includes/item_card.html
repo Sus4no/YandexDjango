@@ -1,4 +1,4 @@
-<h3>{{ item.name }}</h3>
+<h3><a href={% url 'catalog:list' %}{{ item.id }}>{{ item.name }}</a></h3>
 <p>{{ item.text|safe|truncatewords_html:10}}</p>
 <p> Теги:
     {% for tag in item.tags.all %}
