@@ -2,7 +2,7 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 # Загрузка переменных из .env
-config = dotenv_values('/home/runner/work/YandexDjango/YandexDjango/YandexDjango/.env')
+config = dotenv_values('.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'catalog.apps.CatalogConfig',
     'about.apps.AboutConfig',
     'homepage.apps.HomepageConfig',
+    'feedback.apps.FeedbackConfig',
 
     'sorl.thumbnail',
     'django_cleanup.apps.CleanupConfig',
@@ -119,3 +120,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
+EMAIL_FILE_PATH = BASE_DIR / 'sent_mail'
