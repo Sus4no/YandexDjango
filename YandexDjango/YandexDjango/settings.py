@@ -2,13 +2,16 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 # Загрузка переменных из .env
-config = dotenv_values('/home/runner/work/YandexDjango/YandexDjango/YandexDjango/.env')
+config = dotenv_values('.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = config['SECRET_KEY']
 
 DEBUG = map(lambda x: x == 'True', config['DEBUG'])
+
+SENDER_MAIL = config['SENDER_MAIL']
+RECEIVER_MAIL = config['RECEIVER_MAIL']
 
 ALLOWED_HOSTS = []
 
@@ -122,4 +125,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = BASE_DIR / 'sent_mail'
+EMAIL_FILE_PATH = BASE_DIR / 'send_mail'

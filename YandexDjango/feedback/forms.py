@@ -13,5 +13,5 @@ class FeedbackForm(forms.ModelForm):
             Feedback.text.field.name: 'Написать текст здесь'
         }
         widgets = {
-            'text': forms.TextInput(attrs={'class': 'form-control'})
+            'text': forms.Textarea(attrs={'class': 'form-control'})
         }
