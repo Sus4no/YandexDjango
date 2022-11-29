@@ -2,7 +2,7 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 # Загрузка переменных из .env
-config = dotenv_values('/home/runner/work/YandexDjango/YandexDjango/YandexDjango/.env')
+config = dotenv_values('.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -17,7 +17,14 @@ ALLOWED_HOSTS = []
 
 INTERNAL_IPS = [
     '127.0.0.1'
-    ]
+]
+
+AUTH_USER_MODEL = 'users.User'
+
+LOGIN_URL = 'auth/login/'
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_URL = 'auth/logout/'
+LOGOUT_REDIRECT_URL = '/'
 
 
 INSTALLED_APPS = [
@@ -31,6 +38,7 @@ INSTALLED_APPS = [
     'about.apps.AboutConfig',
     'homepage.apps.HomepageConfig',
     'feedback.apps.FeedbackConfig',
+    'users.apps.UsersConfig',
 
     'sorl.thumbnail',
     'django_cleanup.apps.CleanupConfig',

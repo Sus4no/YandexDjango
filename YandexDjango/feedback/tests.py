@@ -34,7 +34,8 @@ class FormTests(TestCase):
             follow=True
         )
 
-        self.assertRedirects(response, reverse('feedback:feedback'))
+        self.assertRedirects(response,
+                             f'{reverse("feedback:feedback")}?sent=True')
 
         self.assertEqual(Feedback.objects.count(), obj_count + 1)
 
