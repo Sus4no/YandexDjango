@@ -5,12 +5,14 @@
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+    <div>
         <h1>Главная страница</h1>
         <div>
         {% for item in items %}
-            {% include "includes/item_card.html" %}
-            <p> Категория: {{item.category.name}}</p>
+            <div class="border rounded-3 mx-3 mt-3 px-3 pt-2">
+                {% include "includes/item_card.html" %}
+                <p> Категория: {{item.category.name}}</p>
+            </div>
         {% endfor %}
         </div>
     </div>

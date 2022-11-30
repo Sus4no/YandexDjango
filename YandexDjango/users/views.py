@@ -43,6 +43,15 @@ def user_detail(request, id):
     return render(request, template_name, context)
 
 
+def user_menu(request):
+    template_name = 'users/user_menu.html'
+    user = get_user(request)
+    context = {
+        'user': user
+    }
+    return render(request, template_name, context)
+
+
 @login_required
 def profile(request):
     template_name = 'users/user_profile.html'

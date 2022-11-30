@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block title %} UserDetail {% endblock %}
+
+{% block content %}
+    <div class="d-flex">
+        <div>
+            <h2> Информация</h2>
+            <ul>
+                <li>Email: {{ user.email }}</li>
+                <li>Имя: {{ user.first_name }}</li>
+                <li>Фамилия: {{ user.last_name }}</li>
+                <li>День рождения: {{ user.birthday }}</li>
+            </ul>
+        </div>
+    </div>
+{% endblock %}

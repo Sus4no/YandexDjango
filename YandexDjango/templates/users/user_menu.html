@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block title %} UserMenu {% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-center">
+        <div>
+            <h2 class="d-inline-block">Меню</h2><br>
+            {% if user.is_authenticated %}
+                <p class="d-inline-block">
+                    <a class="btn btn-primary" href={% url 'users:logout' %}>Выйти</a>
+                </p><br>
+                <p class="d-inline-block">
+                    <a class="btn btn-primary" href={% url 'users:password_change' %}>Сменить Пароль</a>
+                </p><br>
+                <p class="d-inline-block">
+                    <a class="btn btn-primary" href={% url 'users:profile' %}>Изменить профиль</a>
+                </p><br>
+                <p class="d-inline-block">
+                    <a class="btn btn-primary" href={% url 'users:user_list' %}>Список пользователей</a>
+                </p><br>
+            {% else %}
+                <p class="d-inline-block">
+                    <a class="btn btn-primary" href={% url 'users:login' %}>Войти</a>
+                </p><br>
+                <p class="d-inline-block">
+                    <a class="btn btn-primary" href={% url 'users:signup' %}>Зарегистрироваться</a>
+                </p><br>
+                <p class="d-inline-block">
+                    <a class="btn btn-primary" href={% url 'users:password_reset' %}>Забыли пароль?</a>
+                </p><br>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
