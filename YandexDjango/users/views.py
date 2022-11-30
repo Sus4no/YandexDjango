@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import get_user, get_user_model
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
+
 from .forms import SignUpForm, ProfileForm
 
 
@@ -55,15 +56,21 @@ def user_menu(request):
 @login_required
 def profile(request):
     template_name = 'users/user_profile.html'
-    form = ProfileForm(request.POST or None)
+    user = get_user(request)
+    form = ProfileForm({'email': user.email,
+                        'first_name': user.first_name,
+                        'birthday': user.birthday})
+
     context = {
         'form': form,
     }
+
     if request.method == 'POST' and form.is_valid():
         email = form.cleaned_data['email']
         first_name = form.cleaned_data['first_name']
         birthday = form.cleaned_data['birthday']
-        (get_user_model().objects.filter(id=get_user(request).id)
+        (get_user_model().objects.filter(id=user.id)
          .update(email=email, first_name=first_name, birthday=birthday))
         return redirect(reverse('homepage:home'))
+
     return render(request, template_name, context)

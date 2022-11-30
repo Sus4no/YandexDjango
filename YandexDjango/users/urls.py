@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.auth import views
+
 from .views import signup, user_list, user_detail, profile, user_menu
 
 app_name = 'users'

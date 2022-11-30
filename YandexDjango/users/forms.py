@@ -44,7 +44,8 @@ class ProfileForm(forms.ModelForm):
     first_name = forms.Field(widget=forms.TextInput(
         attrs={'class': 'form-control'}), label='Имя')
     birthday = forms.Field(widget=forms.DateInput(
-        attrs={'class': 'form-control'}), label='День рождения')
+        attrs={'class': 'form-control'}, format='%d.%m.%y'),
+        label='День рождения',)
 
     class Meta:
         model = get_user_model()

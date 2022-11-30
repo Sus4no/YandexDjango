@@ -1,10 +1,11 @@
 from django.db import models
 from django.utils.safestring import mark_safe
 from django.http import Http404
-from Core.models import Core
-from Core.validators import validate_if_words_there
 from sorl.thumbnail import get_thumbnail
 from tinymce.models import HTMLField
+
+from Core.models import Core
+from Core.validators import validate_if_words_there
 
 
 class Tag(Core):

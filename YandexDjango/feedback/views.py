@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.conf import settings
 from django.core.mail import send_mail
 from django.urls import reverse
+
 from feedback.forms import FeedbackForm
 from feedback.models import Feedback
 
