@@ -8,7 +8,7 @@ from .forms import SignUpForm, ProfileForm
 
 def signup(request):
     template_name = 'users/signup.html'
-    form = SignUpForm(request.POST or None)
+    form = SignUpForm(request.POST)
     context = {
         'form': form,
     }
@@ -17,12 +17,9 @@ def signup(request):
         password = form.cleaned_data['password']
         confirm_password = form.cleaned_data['confirm_password']
         if password == confirm_password:
-            get_user_model().objects.create(
-                email=email,
-                password=password,
-                is_superuser=False,
-            )
+            get_user_model().objects.create_user(email, password)
             return redirect(reverse('users:login'))
+
     return render(request, template_name, context)
 
 
@@ -57,20 +54,23 @@ def user_menu(request):
 def profile(request):
     template_name = 'users/user_profile.html'
     user = get_user(request)
-    form = ProfileForm({'email': user.email,
-                        'first_name': user.first_name,
-                        'birthday': user.birthday})
+    form = ProfileForm(request.POST or {
+        'email': user.email,
+        'first_name': user.first_name,
+        'birthday': user.birthday
+    })
+    success = request.GET.get('success', False)
 
     context = {
         'form': form,
+        'success': success
     }
 
     if request.method == 'POST' and form.is_valid():
-        email = form.cleaned_data['email']
-        first_name = form.cleaned_data['first_name']
-        birthday = form.cleaned_data['birthday']
-        (get_user_model().objects.filter(id=user.id)
-         .update(email=email, first_name=first_name, birthday=birthday))
-        return redirect(reverse('homepage:home'))
+        user.email = form.cleaned_data['email']
+        user.first_name = form.cleaned_data['first_name']
+        user.birthday = form.cleaned_data['birthday']
+        user.save()
+        return redirect(f'{reverse("users:profile")}?success=True')
 
     return render(request, template_name, context)

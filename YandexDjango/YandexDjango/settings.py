@@ -3,7 +3,7 @@ from pathlib import Path
 from dotenv import dotenv_values
 
 # Загрузка переменных из .env
-config = dotenv_values('/home/runner/work/YandexDjango/YandexDjango/YandexDjango/.env')
+config = dotenv_values('.env')
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -26,6 +26,9 @@ LOGIN_URL = 'auth/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_URL = 'auth/logout/'
 LOGOUT_REDIRECT_URL = '/'
+
+DATE_INPUT_FORMATS = ['%j.%n.%Y', '%d.%m.%Y', '%Y-%m-%d']
+DATE_FORMAT = ['%j.%n.%Y', '%d.%m.%Y']
 
 
 INSTALLED_APPS = [

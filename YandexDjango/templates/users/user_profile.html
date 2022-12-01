@@ -3,9 +3,13 @@
 {% block title %} UserDetail {% endblock %}
 
 {% block content %}
+{% load l10n %}
     <div class="d-flex">
-        <div>
+        <div> 
             <h2>Редактирование профиля</h2>
+            {% if success %}
+                <h3>Успешно!</h3>
+            {% endif %}
             {% include "includes/user_form.html" %}
         </div>
     </div>
